@@ -11,7 +11,7 @@ import org.apache.kafka.common.serialization.StringSerializer;
 public class Producer {
 
     private static final String TOPIC = "test-topic";
-    private static final String BOOTSTRAP_SERVERS = "localhost:9092";
+    private static final String BOOTSTRAP_SERVERS = "kafka-service:9092";
 
     public static void main(String[] args) throws IOException, InterruptedException {
         // Create a Kafka producer.

@@ -1,5 +1,5 @@
-FROM maven:3.8.6-openjdk-11-slim
+FROM maven:latest
 COPY . /usr/src/myapp
 WORKDIR /usr/src/myapp
 RUN mvn package
-CMD ["java", "-jar", "target/producer-1.jar"]
+CMD ["java", "-jar", "target/test-producer-1.jar"]

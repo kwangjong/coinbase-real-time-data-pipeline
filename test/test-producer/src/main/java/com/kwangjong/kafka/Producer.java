@@ -1,4 +1,4 @@
-package producer;
+package com.kwangjong.kafka;
 
 import java.io.IOException;
 import java.util.Properties;
@@ -23,8 +23,9 @@ public class Producer {
         KafkaProducer<String, String> producer = new KafkaProducer<>(props);
 
         // Send mock data every second.
-        for (int i=0; i<100; i++) {
+        for (int i=0; i<10; i++) {
             producer.send(new ProducerRecord<>(TOPIC, "mock_data"));
+            System.out.printf("sent %d\n", i);
             TimeUnit.SECONDS.sleep(1);
         }
 

@@ -1,2 +1,4 @@
 test/test-consumer/target/
 test/test-producer/target/
+java_coinbase_producer/target/
+spark_stream_processor/target/

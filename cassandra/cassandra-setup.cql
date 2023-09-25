@@ -6,9 +6,9 @@ USE coinbase;
 CREATE TABLE IF NOT EXISTS coinbase_prices (
     sequence BIGINT PRIMARY KEY,
     product_id TEXT,
-    price TEXT,
-    low_24h DOUBLE,
-    high_24h DOUBLE,
+    price FLOAT,
+    low_24h FLOAT,
+    high_24h FLOAT,
     time TIMESTAMP
 );
 WITH CLUSTERING ORDER BY (time DESC);

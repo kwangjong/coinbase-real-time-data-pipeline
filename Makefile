@@ -1,27 +1,30 @@
-build: kafka-test-build
+build:
+	docker build java_coinbase_producer/ -t producer
+	docker build spark_stream_processor/ -t spark
+	docker build cassandra/ -t cassandra
+	docker build grafana/ -t grafana
+	docker pull bitnami/kafka
+	docker pull zookeeper
+	docker network create data-pipeline
 
-kafka-test-build: start-minikube
-	docker build test/test-consumer -t kwangjong/consumer
-	docker build test/test-producer -t kwangjong/producer
-	minikube image load kwangjong/consumer
-	minikube image load kwangjong/producer
+run:
+	docker run --rm -d --name zookeeper --hostname zookeeper --network data-pipeline zookeeper
 
-deploy: load-image
-	kubectl apply -f k8s/producer.yaml
-	kubectl apply -f k8s/consumer.yaml
-	kubectl apply -f k8s/kafka-broker.yaml
-	kubectl apply -f k8s/zookeeper.yaml
+	docker run --rm -d --name kafka --hostname kafka --network data-pipeline\
+		-e KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181\
+		-e KAFKA_LISTENERS=LISTENER_INTERNAL://kafka:9092,LISTENER_EXTERNAL://localhost:9093\
+		-e KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=LISTENER_INTERNAL:PLAINTEXT,LISTENER_EXTERNAL:PLAINTEXT\
+		-e KAFKA_INTER_BROKER_LISTENER_NAME=LISTENER_INTERNAL\
+		bitnami/kafka
 
-load-image: start-minikube
-	@if [ "$$(minikube image ls | grep kwangjong/consumer -c)" != "1" ]; then\
-                minikube image load kwangjong/consumer;\
-        	minikube image load kwangjong/producer;\
-        fi
+	docker run --rm -d --name cassandra --hostname cassandra --network data-pipeline cassandra
 
-start-minikube:
-	@if [ "$$(minikube status | grep host:\ Running -c)" != "1" ]; then\
-		minikube start;\
-	fi
+	echo "waiting for cassandra to boot"
+	sleep 60
+	cassandra/./cassandra_load
 
-delete:
-	minikube delete --all
+	docker run --rm -d --name producer --hostname producer --network data-pipeline producer
+
+	docker run --rm -d --name spark --hostname spark --network data-pipeline spark
+
+	docker run --rm -d --name grafana --hostname grafana --network data-pipeline  grafana

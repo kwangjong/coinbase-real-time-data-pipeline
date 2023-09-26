@@ -17,7 +17,7 @@ import org.java_websocket.handshake.ServerHandshake;
 public class Producer {
 
     private static final String TOPIC = "test-topic";
-    private static final String BOOTSTRAP_SERVERS = "localhost:9092";
+    private static final String BOOTSTRAP_SERVERS = "kafka:9092";
     private static final String PRODUCT_IDS = "[\"ETH-USD\",\"BTC-USD\",\"XRP-USD\"]";
 
     public static void main(String[] args) throws IOException, InterruptedException {

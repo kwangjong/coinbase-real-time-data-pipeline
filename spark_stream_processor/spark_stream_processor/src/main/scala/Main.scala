@@ -27,7 +27,7 @@ object StreamProcessorApp extends App {
     // Read data from Kafka
     val kafkaStream = spark.readStream
     .format("kafka")
-    .option("kafka.bootstrap.servers", "128.105.37.148:9092") // Kafka broker address
+    .option("kafka.bootstrap.servers", "kafka:9092") // Kafka broker address
     .option("subscribe", "test-topic") // Kafka topic to subscribe to
     .load()
 

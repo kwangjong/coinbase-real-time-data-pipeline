@@ -13,6 +13,7 @@ The Coinbase Real-time Data Pipeline is engineered to acquire real-time cryptocu
 * [Storing processed data in Cassandra](https://kwangjong.github.io/blog/2023-09-26-Storing-processed-data-in-Cassandra)
 
 ## Todo
-* container orchestration using kubernetes
-* CI pipeline using Github Action
-* code cleanup and Integration testing
+* Implement container orchestration using Kubernetes
+* Set up a CI pipeline using GitHub Actions
+* Perform code cleanup and integration testing
+* Explore interesting data analysis opportunities on the collected data

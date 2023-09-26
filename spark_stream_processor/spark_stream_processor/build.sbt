@@ -14,6 +14,7 @@ lazy val root = project
         "org.apache.spark" %% "spark-sql" % sparkVersion,
         "org.apache.spark" %% "spark-sql-kafka-0-10" % sparkVersion
     ),
+    libraryDependencies += "com.datastax.spark" %% "spark-cassandra-connector" % "3.4.1",
     
     fork := true,
     javaOptions += "--add-exports=java.base/sun.nio.ch=ALL-UNNAMED"

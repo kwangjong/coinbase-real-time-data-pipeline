@@ -5,7 +5,6 @@ object StreamProcessorApp extends App {
     import org.apache.spark.sql.types._
     import org.apache.spark.sql.streaming.{OutputMode, Trigger}
     import org.apache.spark.sql.expressions.Window
-    //import org.apache.spark.sql.cassandra._
 
     // Define the schema for the JSON data
     val schema = StructType(Seq(
@@ -21,13 +20,14 @@ object StreamProcessorApp extends App {
     val spark = SparkSession.builder
     .appName("StreamProcessor")
     .config("spark.master", "local")
-    //.config("spark.cassandra.connection.host", "localhost") // Cassandra connection settings
+    .config("spark.cassandra.connection.host", "cassandra")
+    .config("spark.cassandra.connection.port", "9042")
     .getOrCreate()
 
     // Read data from Kafka
     val kafkaStream = spark.readStream
     .format("kafka")
-    .option("kafka.bootstrap.servers", "localhost:9092") // Kafka broker address
+    .option("kafka.bootstrap.servers", "128.105.37.148:9092") // Kafka broker address
     .option("subscribe", "test-topic") // Kafka topic to subscribe to
     .load()
 
@@ -37,7 +37,7 @@ object StreamProcessorApp extends App {
     .select(from_json(col("value"), schema).as("data"))
     .select("data.*")
 
-    val parsedDF = jsonStream
+    val parsedStream = jsonStream
     .select(
         col("sequence"),
         col("product_id"),
@@ -53,12 +53,26 @@ object StreamProcessorApp extends App {
     // .groupBy(window(col("time"), "10 second"), col("product_id"))
     // .agg(avg("price").alias("moving_average"))
 
-    // Start the query to write the results to the console
-    val query = parsedDF
-    .writeStream
-    .outputMode("append")
-    .format("console")
-    .start()
+    // // Start the query to write the results to the console
+    // val query = parsedDF
+    // .writeStream
+    // .outputMode("append")
+    // .format("console")
+    // .start()
 
-    query.awaitTermination()
+    // Write the results to Cassandra
+    parsedStream
+    .writeStream
+    .foreachBatch { (batchDF: DataFrame, batchId: Long) =>
+         batchDF
+             .write
+             .format("org.apache.spark.sql.cassandra")
+             .options(Map("table" -> "coinbase_prices", "keyspace" -> "coinbase")) // Cassandra table and keyspace names
+             .mode("append")
+             .save()
+    }
+    .trigger(Trigger.ProcessingTime("5 seconds"))
+    .outputMode(OutputMode.Append())
+    .start()
+    .awaitTermination()
 }

@@ -5,10 +5,9 @@ metadata:
 spec:
   selector:
     app: producer
-  clusterIP: None
   ports:
   - port: 8080
-    targetPort: 8080s
+    targetPort: 8080
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -28,4 +27,6 @@ spec:
     spec:
       containers:
       - name: producer
-        image: kwangjong/java-kafka-producer
+        image: kwangjong/java-coinbase-producer:latest
+        ports:
+          - containerPort: 8000

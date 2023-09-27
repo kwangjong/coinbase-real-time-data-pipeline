@@ -1,2 +1,0 @@
-#!/bin/bash
-docker exec cassandra cqlsh cassandra-service -f /cassandra-setup.cql

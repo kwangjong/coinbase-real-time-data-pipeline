@@ -73,11 +73,12 @@ public class Producer {
         // Connect the WebSocket client.
         client.connect();
 
-        // Keep the producer running until the user presses Enter.
-        System.in.read();
-
-        // Close the producer and WebSocket client.
-        producer.close();
-        client.close();
+        // Add shutdown hook to close Websocket and Kafka client gracefully
+        Runtime.getRuntime().addShutdownHook(new Thread() {
+            public void run() {
+                producer.close();
+                client.close();
+            }
+        });
     }
 }

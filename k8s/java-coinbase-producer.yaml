@@ -5,9 +5,7 @@ metadata:
 spec:
   selector:
     app: producer
-  ports:
-  - port: 8080
-    targetPort: 8080
+  ports: []
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -28,5 +26,3 @@ spec:
       containers:
       - name: producer
         image: kwangjong/java-coinbase-producer:latest
-        ports:
-          - containerPort: 8000

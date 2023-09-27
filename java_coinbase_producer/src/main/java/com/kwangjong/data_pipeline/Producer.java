@@ -3,10 +3,7 @@ package com.kwangjong.data_pipeline;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URI;
-import java.time.Duration;
-import java.util.Collections;
 import java.util.Properties;
-import java.util.concurrent.TimeUnit;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;

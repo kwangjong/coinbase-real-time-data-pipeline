@@ -20,7 +20,7 @@ datasources:
     # <string> custom UID which can be used to reference this datasource in other parts of the configuration, if not specified will be generated automatically
     uid: Yc87Z6OJ4wsv
     # <string> url
-    url: cassandra:9042
+    url: cassandra-service:9042
     # <string> database user, if used
     user:
     # <string> database name, if used

@@ -20,14 +20,14 @@ object StreamProcessorApp extends App {
     val spark = SparkSession.builder
     .appName("StreamProcessor")
     .config("spark.master", "local")
-    .config("spark.cassandra.connection.host", "cassandra")
+    .config("spark.cassandra.connection.host", "cassandra-service")
     .config("spark.cassandra.connection.port", "9042")
     .getOrCreate()
 
     // Read data from Kafka
     val kafkaStream = spark.readStream
     .format("kafka")
-    .option("kafka.bootstrap.servers", "kafka:9092") // Kafka broker address
+    .option("kafka.bootstrap.servers", "kafka-service:9092") // Kafka broker address
     .option("subscribe", "test-topic") // Kafka topic to subscribe to
     .load()
 

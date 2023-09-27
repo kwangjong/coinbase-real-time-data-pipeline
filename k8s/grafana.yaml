@@ -5,6 +5,8 @@ metadata:
 spec:
   selector:
     app: grafana
+  clusterIP: None
+  ports: []
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -23,5 +25,5 @@ spec:
         app: grafana
     spec:
       containers:
-      - name: producer
+      - name: grafana
         image: kwangjong/grafana

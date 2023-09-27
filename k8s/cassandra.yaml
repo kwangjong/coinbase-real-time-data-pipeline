@@ -27,7 +27,7 @@ spec:
         app: cassandra
     spec:
       containers:
-      - name: producer
+      - name: cassandra
         image: kwangjong/cassandra
         ports:
         - containerPort: 9042

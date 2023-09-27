@@ -5,6 +5,7 @@ metadata:
 spec:
   selector:
     app: producer
+  clusterIP: None
   ports: []
 ---
 apiVersion: apps/v1

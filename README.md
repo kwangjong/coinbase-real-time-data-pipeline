@@ -15,6 +15,6 @@ The Coinbase Real-time Data Pipeline is engineered to acquire real-time cryptocu
 
 ## Todo
 * ~~Implement container orchestration using Kubernetes~~ -> write a blog post on this
-* Set up a CI pipeline using GitHub Actions
+* ~~Set up a CI pipeline using GitHub Actions~~ -> write a blog post on this
 * Perform code cleanup and integration testing
 * Explore interesting data analysis opportunities on the collected data

@@ -7,7 +7,7 @@ The Coinbase Real-time Data Pipeline is engineered to acquire real-time cryptocu
 ![architecture](https://i.imgur.com/Be7RcI2.jpeg)
 
 ## Blog posts
-* [Real-Time Data Pipeline: Kafka, Spark, and Cassandra](https://kwangjong.github.io/blog/2023-09-22-Real-Time-Data-Pipeline:-Kafka,-Spark,-and-Cassandra)
+* [Real-Time Data Pipeline Architecture Overview: Kafka, Spark, and Cassandra](https://kwangjong.github.io/blog/2023-09-22-Real-Time-Data-Pipeline-Architecture-Overview:-Kafka,-Spark,-and-Cassandra)
 * [Getting Started with Apache Kafka](https://kwangjong.github.io/blog/2023-09-24-Getting-Started-with-Apache-Kafka)
 * [Structured Stream Processing with Scala Spark](https://kwangjong.github.io/blog/2023-09-25-Structured-Stream-Processing-with-Scala-Spark)
 * [Storing processed data in Cassandra](https://kwangjong.github.io/blog/2023-09-26-Storing-processed-data-in-Cassandra)

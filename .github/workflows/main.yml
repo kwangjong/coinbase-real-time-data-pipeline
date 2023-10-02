@@ -6,7 +6,7 @@ on:
       - 'main'
 
 jobs:
-  docker:
+  cassandra:
     runs-on: ubuntu-latest
     steps:
       -
@@ -30,4 +30,4 @@ jobs:
         with:
           context: cassandra
           push: true
-          tags: kwanjong/cassandra
+          tags: kwangjong/cassandra:latest

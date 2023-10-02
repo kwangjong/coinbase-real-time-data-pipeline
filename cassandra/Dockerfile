@@ -1,6 +1,8 @@
 FROM cassandra:latest
 
 COPY ./cassandra-setup.cql /cassandra-setup.cql
+RUN sed -i "s/rpc_address: localhost/rpc_address: 0.0.0.0/g" /etc/cassandra/cassandra.yaml
+RUN sed -i "s/# broadcast_rpc_address: 1.2.3.4/broadcast_rpc_address: 1.2.3.4/g" /etc/cassandra/cassandra.yaml
 
 RUN mkdir /home/cassandra
 RUN chown cassandra:users /home/cassandra

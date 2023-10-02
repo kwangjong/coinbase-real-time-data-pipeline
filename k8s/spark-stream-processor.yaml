@@ -5,6 +5,9 @@ metadata:
 spec:
   selector:
     app: spark
+  ports:
+  - port: 3000
+    targetPort: 3000
 ---
 apiVersion: apps/v1
 kind: Deployment

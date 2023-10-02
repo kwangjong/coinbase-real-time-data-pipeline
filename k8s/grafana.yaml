@@ -5,8 +5,10 @@ metadata:
 spec:
   selector:
     app: grafana
-  clusterIP: None
-  ports: []
+  type: NodePort
+  ports:
+  - port: 3000
+    targetPort: 3000
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -27,3 +29,5 @@ spec:
       containers:
       - name: grafana
         image: kwangjong/grafana
+        ports:
+        - containerPort: 3000

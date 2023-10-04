@@ -25,6 +25,13 @@ The real-time data pipeline project facilitates the collection, processing, stor
 
 To ensure the smooth orchestration and management of all project components on a single machine, Kubernetes comes into play. Leveraging Minikube, a lightweight Kubernetes distribution tailored for local development and testing, we can simulate a production-like environment right on our local system. This deployment approach simplifies the process of setting up and experimenting with our real-time data pipeline. Moreover, with minor adjustments, this configuration can be smoothly migrated to actual Kubernetes clusters, like GKE or EKE, offering scalability and making it production-ready.
 
+## CI/CD
+<p align="center">
+  <img src="https://i.imgur.com/LU2iYUF.png" style="width: 800px"/>
+</p>
+
+This repository leverages GitHub Actions for automated CI/CD. Upon each code push to the main branch, Docker images are automatically built and pushed to Docker Hub. This ensures that the containers remain up to date and ready for deployment.
+
 ## Blog posts
 * [Real-Time Data Pipeline Architecture Overview: Kafka, Spark, and Cassandra](https://kwangjong.github.io/blog/2023-09-22-Real-Time-Data-Pipeline-Architecture-Overview:-Kafka,-Spark,-and-Cassandra)
 * [Getting Started with Apache Kafka](https://kwangjong.github.io/blog/2023-09-24-Getting-Started-with-Apache-Kafka)
@@ -32,8 +39,8 @@ To ensure the smooth orchestration and management of all project components on a
 * [Storing processed data in Cassandra](https://kwangjong.github.io/blog/2023-09-26-Storing-processed-data-in-Cassandra)
 * [Visualizing Stream Data in Cassandra Using Grafana](https://kwangjong.github.io/blog/2023-10-02-Visualizing-Stream-Data-in-Cassandra-Using-Grafana)
 * [Deploying a Real-time Data Pipeline in Minikube with Kubernetes](https://kwangjong.github.io/blog/2023-10-04-Deploying-a-Real-time-Data-Pipeline-in-Minikube-with-Kubernetes)
+* [Automating Docker Image Builds with GitHub Actions: CI/CD](https://kwangjong.github.io/blog/2023-10-04-Automating-Docker-Image-Builds-with-GitHub-Actions:-CICD)
 
 ## Future Work
-* ~~Set up a CI pipeline using GitHub Actions~~ -> write a blog post on this
 * Perform code cleanup and integration testing
 * Explore interesting data analysis opportunities on the collected data

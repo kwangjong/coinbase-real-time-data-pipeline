@@ -8,14 +8,27 @@ build:
 	docker push kwangjong/cassandra
 	docker push kwangjong/grafana
 
-run: 
+run: start-minikube apply
+
+start-minikube:
 	minikube start
-	kubectl apply -f cassandra.yaml
-	kubectl apply -f kafka-broker.yaml
-	kubectl apply -f zookeeper.yaml
-	kubectl apply -f spark-stream-processor.yaml
-	kubectl apply -f java-coinbase-producer.yaml
-	kubectl apply -f grafana.yaml
+
+apply:
+	kubectl apply -f k8s/cassandra.yaml
+	kubectl apply -f k8s/kafka-broker.yaml
+	kubectl apply -f k8s/zookeeper.yaml
+	kubectl apply -f k8s/spark-stream-processor.yaml
+	kubectl apply -f k8s/java-coinbase-producer.yaml
+	kubectl apply -f k8s/grafana.yaml
+
+delete:
+	kubectl delete -f k8s/cassandra.yaml
+	kubectl delete -f k8s/kafka-broker.yaml
+	kubectl delete -f k8s/zookeeper.yaml
+	kubectl delete -f k8s/spark-stream-processor.yaml
+	kubectl delete -f k8s/java-coinbase-producer.yaml
+	kubectl delete -f k8s/grafana.yaml
+
 
 shutdown:
 	minikube delete

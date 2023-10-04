@@ -33,8 +33,7 @@ To ensure the smooth orchestration and management of all project components on a
 * [Visualizing Stream Data in Cassandra Using Grafana](https://kwangjong.github.io/blog/2023-10-02-Visualizing-Stream-Data-in-Cassandra-Using-Grafana)
 * [Deploying a Real-time Data Pipeline in Minikube with Kubernetes](https://kwangjong.github.io/blog/2023-10-04-Deploying-a-Real-time-Data-Pipeline-in-Minikube-with-Kubernetes)
 
-## Todo
-* ~~Implement container orchestration using Kubernetes -> write a blog post on this~~
+## Future Work
 * ~~Set up a CI pipeline using GitHub Actions~~ -> write a blog post on this
 * Perform code cleanup and integration testing
 * Explore interesting data analysis opportunities on the collected data

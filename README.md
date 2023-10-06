@@ -21,7 +21,7 @@ The real-time data pipeline project facilitates the collection, processing, stor
 - **Grafana for Data Visualization**: To make data easily understandable, Grafana, an open-source platform for monitoring and observability, is utilized. Grafana queries data from Cassandra to create compelling real-time visualizations, providing insights into cryptocurrency market trends.
 
 ## Deployment
-![kubernetes-pods](https://i.imgur.com/yJOpic5.png)
+![kubernetes-pods](https://i.imgur.com/LacnL5c.png)
 
 To ensure the smooth orchestration and management of all project components on a single machine, Kubernetes comes into play. Leveraging Minikube, a lightweight Kubernetes distribution tailored for local development and testing, we can simulate a production-like environment right on our local system. This deployment approach simplifies the process of setting up and experimenting with our real-time data pipeline. Moreover, with minor adjustments, this configuration can be smoothly migrated to actual Kubernetes clusters, like GKE or EKE, offering scalability and making it production-ready.
 

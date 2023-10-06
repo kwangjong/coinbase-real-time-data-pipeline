@@ -27,7 +27,7 @@ To ensure the smooth orchestration and management of all project components on a
 
 ## CI/CD
 <p align="center">
-  <img src="https://i.imgur.com/LU2iYUF.png" style="width: 800px"/>
+  <img src="https://i.imgur.com/LU2iYUF.png" style="width: 600px"/>
 </p>
 
 This repository leverages GitHub Actions for automated CI/CD. Upon each code push to the main branch, Docker images are automatically built and pushed to Docker Hub. This ensures that the containers remain up to date and ready for deployment.

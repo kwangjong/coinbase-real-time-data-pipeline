@@ -1,0 +1,60 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: hdfs-service
+spec:
+  selector:
+    app: hdfs-nn
+  ports:
+  - port: 9000
+    targetPort: 9000
+    name: ipc
+  - port: 9870
+    targetPort: 9870
+    name: http
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hdfs-nn
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hdfs-nn
+  template:
+    metadata:
+      labels:
+        app: hdfs-nn
+    spec:
+      hostname: boss
+      containers:
+      - name: hdfs-nn
+        image: kwangjong/hdfs-nn
+        env:
+        - name: HDFS_NAMENODE_URL
+          value: "hdfs://0.0.0.0:9000"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hdfs-dn
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: hdfs-dn
+  template:
+    metadata:
+      labels:
+        app: hdfs-dn
+    spec:
+      containers:
+      - name: hdfs-dn
+        image: kwangjong/hdfs-dn
+        env:
+        - name: HDFS_NAMENODE_URL
+          value: "hdfs://hdfs-service:9000"
+        ports:
+        - containerPort: 9867
+        - containerPort: 9866

@@ -30,7 +30,7 @@ apply:
 	kubectl apply -f k8s/spark-stream-processor.yaml
 	kubectl apply -f k8s/java-coinbase-producer.yaml
 	kubectl apply -f k8s/grafana.yaml
-	kubectl apply -f k8s/hdfs.yaml\
+	kubectl apply -f k8s/hdfs.yaml
 
 delete:
 	kubectl delete -f k8s/cassandra.yaml

@@ -31,6 +31,16 @@ object StreamProcessorApp extends App {
     .option("subscribe", "test-topic") // Kafka topic to subscribe to
     .load()
 
+    // Write raw data to HDFS
+
+    val raw_data_df = kafkaStream.selectExpr("CAST(value AS STRING)")
+
+    val query_raw_to_hdfs = raw_data_df.writeStream
+    .format("parquet")
+    .option("path", "hdfs://hdfs-service:9000/kwangjong/coinbase/raw_data")
+    .option("checkpointLocation", "hdfs://hdfs-service:9000/kwangjong/coinbase/checkpoints/raw")
+    .start()
+
     // Parse JSON and select relevant fields
     val jsonStream = kafkaStream
     .selectExpr("CAST(value AS STRING)") // Assume the JSON data is in the 'value' field

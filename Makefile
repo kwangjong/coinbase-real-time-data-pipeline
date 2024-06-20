@@ -3,7 +3,7 @@ build:
 	docker build spark_stream_processor/ -t kwangjong/spark-stream-processor
 	docker build cassandra/ -t kwangjong/cassandra
 	docker build grafana/ -t kwangjong/grafana
-	# docker build hdfs/ -f hdfs/hdfs.Dockerfile -t kwangjong/hdfs
+	docker build hdfs/ -f hdfs/hdfs.Dockerfile -t kwangjong/hdfs
 	docker build hdfs/ -f hdfs/hdfs-nn.Dockerfile -t kwangjong/hdfs-nn
 	docker build hdfs/ -f hdfs/hdfs-dn.Dockerfile -t kwangjong/hdfs-dn
 

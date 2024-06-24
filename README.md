@@ -41,6 +41,7 @@ This repository leverages GitHub Actions for automated CI/CD. Upon each code pus
 * [Deploying a Real-time Data Pipeline in Minikube with Kubernetes](https://kwangjong.github.io/blog/2023-10-04-Deploying-a-Real-time-Data-Pipeline-in-Minikube-with-Kubernetes)
 * [Automating Docker Image Builds with GitHub Actions: CI/CD](https://kwangjong.github.io/blog/2023-10-04-Automating-Docker-Image-Builds-with-GitHub-Actions:-CICD)
 * [Transforming Data Pipelines with HDFS: A Scalable Solution for Raw Data Storage](https://kwangjong.github.io/blog/2024-06-20-Transforming-Data-Pipelines-with-HDFS:-A-Scalable-Solution-for-Raw-Data-Storage)
+* [Enhancing Real-Time Data Pipelines with Kafka and HDFS in Go](https://kwangjong.github.io/blog/2024-06-23-Enhancing-Real-Time-Data-Pipelines-with-Kafka-and-HDFS-in-Go)
 
 ## Future Work
 * Perform code cleanup and integration testing

@@ -14,7 +14,7 @@ The Coinbase Real-time Data Pipeline is designed to retrieve real-time cryptocur
 The real-time data pipeline project facilitates the collection, processing, storage, and visualization of cryptocurrency market data from Coinbase. It comprises key components:
 
 - **Coinbase WebSocket API**: This serves as the initial data source, providing real-time cryptocurrency market data streams, including trades and price changes.
-- **Java Kafka Producer Microservice**: To efficiently manage data, a Java-based microservice functions as a Kafka producer. It collects data from the Coinbase WebSocket API and sends it to the Kafka broker.
+- **Java Kafka Producer**: To efficiently manage data, a Java-based microservice functions as a Kafka producer. It collects data from the Coinbase WebSocket API and sends it to the Kafka broker.
 - **Kafka Broker**: Kafka, an open-source distributed event streaming platform, forms the core of the data pipeline. It efficiently handles high-throughput, fault-tolerant, real-time data streams, receiving data from the producer and making it available for further processing.
 - **Go Kafka Consumer**: Implemented in Go, the Kafka consumer pulls raw data from Kafka topics and stores them directly into HDFS (Hadoop Distributed File System). This step ensures robust and scalable storage of raw data.
 - **HDFS for Raw Data Storage**: HDFS provides reliable storage for large volumes of raw data. It is ideal for streaming data applications due to its fault tolerance, high throughput, and scalability. The Go Kafka consumer writes raw data directly to HDFS, enabling seamless integration into the pipeline.

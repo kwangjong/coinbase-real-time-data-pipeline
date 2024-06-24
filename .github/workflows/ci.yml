@@ -6,93 +6,60 @@ on:
       - 'main'
 
 jobs:
-  cassandra:
+  build-and-push:
     runs-on: ubuntu-latest
     steps:
-      -
-        name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v3
-      -
-        name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-      -
-        name: Login to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-      -
-        name: Build and push
-        uses: docker/build-push-action@v5
-        with:
-          context: cassandra
-          push: true
-          tags: kwangjong/cassandra:latest
 
-  java-coinbase-producer:
-    runs-on: ubuntu-latest
-    steps:
-      -
-        name: Checkout
-        uses: actions/checkout@v3
-      -
-        name: Set up Docker Buildx
+      - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-      -
-        name: Login to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-      -
-        name: Build and push
-        uses: docker/build-push-action@v5
-        with:
-          context: java_coinbase_producer
-          push: true
-          tags: kwangjong/java-coinbase-producer:latest
 
-  spark:
-    runs-on: ubuntu-latest
-    steps:
-      -
-        name: Checkout
-        uses: actions/checkout@v3
-      -
-        name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-      -
-        name: Login to Docker Hub
+      - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      -
-        name: Build and push
-        uses: docker/build-push-action@v5
-        with:
-          context: spark_stream_processor
-          push: true
-          tags: kwangjong/spark-stream-processor:latest
-  grafana:
+
+      - name: Build and push images
+        run: |
+          docker build java_coinbase_producer/ -f java_coinbase_producer/java_coinbase_producer.Dockerfile -t kwangjong/java-coinbase-producer
+          docker build spark_stream_processor/ -f spark_stream_processor/spark_stream_processor.Dockerfile -t kwangjong/spark-stream-processor
+          docker build cassandra/ -f cassandra/cassandra.Dockerfile -t kwangjong/cassandra
+          docker build grafana/ -f grafana/grafana.Dockerfile -t kwangjong/grafana
+          docker build hdfs/ -f hdfs/hdfs.Dockerfile -t kwangjong/hdfs
+          docker build hdfs/ -f hdfs/hdfs-nn.Dockerfile -t kwangjong/hdfs-nn
+          docker build hdfs/ -f hdfs/hdfs-dn.Dockerfile -t kwangjong/hdfs-dn
+          docker build go_kafka_consumer/ -f go_kafka_consumer/go_kafka_consumer.Dockerfile -t kwangjong/go-kafka-consumer
+          docker push kwangjong/java-coinbase-producer
+          docker push kwangjong/spark-stream-processor
+          docker push kwangjong/cassandra
+          docker push kwangjong/grafana
+          docker push kwangjong/hdfs
+          docker push kwangjong/hdfs-nn
+          docker push kwangjong/hdfs-dn
+          docker push kwangjong/go-kafka-consumer
+
+  deploy:
     runs-on: ubuntu-latest
+    needs: build-and-push
     steps:
-      -
-        name: Checkout
-        uses: actions/checkout@v3
-      -
-        name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-      -
-        name: Login to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-      -
-        name: Build and push
-        uses: docker/build-push-action@v5
-        with:
-          context: grafana
-          push: true
-          tags: kwangjong/grafana:latest
+      - name: Start Minikube
+        run: minikube start
+
+      - name: Apply Kubernetes manifests
+        run: |
+          kubectl apply -f k8s/cassandra.yaml
+          kubectl apply -f k8s/kafka-broker.yaml
+          kubectl apply -f k8s/zookeeper.yaml
+          kubectl apply -f k8s/spark-stream-processor.yaml
+          kubectl apply -f k8s/java-coinbase-producer.yaml
+          kubectl apply -f k8s/grafana.yaml
+          kubectl apply -f k8s/hdfs.yaml
+          kubectl apply -f k8s/go-kafka-consumer.yaml
+
+      - name: Clean up
+        run: minikube delete
+
+      - name: Shutdown Minikube
+        run: minikube delete

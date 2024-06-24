@@ -28,18 +28,9 @@ object StreamProcessorApp extends App {
     val kafkaStream = spark.readStream
     .format("kafka")
     .option("kafka.bootstrap.servers", "kafka-service:9092") // Kafka broker address
-    .option("subscribe", "test-topic") // Kafka topic to subscribe to
+    .option("subscribe", "coin-data") // Kafka topic to subscribe to
+    .option("kafka.group.id", "coin-data-consumer") // Kafka consumer group ID
     .load()
-
-    // Write raw data to HDFS
-
-    val raw_data_df = kafkaStream.selectExpr("CAST(value AS STRING)")
-
-    val query_raw_to_hdfs = raw_data_df.writeStream
-    .format("parquet")
-    .option("path", "hdfs://hdfs-service:9000/kwangjong/coinbase/raw_data")
-    .option("checkpointLocation", "hdfs://hdfs-service:9000/kwangjong/coinbase/checkpoints/raw")
-    .start()
 
     // Parse JSON and select relevant fields
     val jsonStream = kafkaStream
@@ -56,19 +47,6 @@ object StreamProcessorApp extends App {
         col("high_24h").cast(FloatType).alias("high_24h"),
         col("time")
     )
-
-    // // Calculate the 1-hour moving average of the "price" field using a time-based window
-    // val movingAvgStream = parsedDF
-    // .withWatermark("time", "10 second") // Set a watermark to handle late data
-    // .groupBy(window(col("time"), "10 second"), col("product_id"))
-    // .agg(avg("price").alias("moving_average"))
-
-    // // Start the query to write the results to the console
-    // val query = parsedDF
-    // .writeStream
-    // .outputMode("append")
-    // .format("console")
-    // .start()
 
     // Write the results to Cassandra
     parsedStream

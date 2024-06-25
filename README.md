@@ -49,4 +49,6 @@ This repository leverages GitHub Actions for automated CI/CD. Upon each code pus
 
 ## Future Work
 * Perform code cleanup and integration testing
-* Explore interesting data analysis opportunities on the collected data
+* Deploy to EKS
+* Add monitoring and logging tools
+* Perform more comprehensive analysis (like forecasting or sliding window avg)
